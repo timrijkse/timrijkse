@@ -1,5 +1,5 @@
 <template>
-  <button :class="$style.rectangleButton" data-cursor="pointer">
+  <button :class="$style.rectangleButton" data-cursor="drag">
     <span :class="$style.inner">
       <slot></slot>
     </span>
@@ -12,6 +12,8 @@ export default {}
 
 <style module>
 .rectangleButton {
+  transition: background-color 200ms ease-out;
+  outline: none;
   display: inline-block;
   padding: 2px;
   background-color: none;
@@ -19,6 +21,7 @@ export default {}
 }
 
 .inner {
+  transition: all 200ms ease-out;
   pointer-events: none;
   display: block;
   width: 100%;
@@ -26,5 +29,14 @@ export default {}
   padding: 10px;
   border: 1px solid #000;
   color: #000;
+}
+
+.rectangleButton:hover {
+  background-color: #000;
+}
+
+.rectangleButton:hover .inner {
+  border-color: #fff;
+  color: #fff;
 }
 </style>

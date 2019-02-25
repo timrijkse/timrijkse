@@ -1,6 +1,9 @@
 <template>
   <div :class="$style.customCursor" :style="mousePosition">
-    <div :class="mouseCursor"/>
+    <div :class="mouseCursor">
+      <div :class="$style.arrowLeft"></div>
+      <div :class="$style.arrowRight"></div>
+    </div>
   </div>
 </template>
 
@@ -19,6 +22,9 @@ export default {
       switch (this.cursor) {
         case 'pointer': {
           return this.$style.cursorPointer
+        }
+        case 'drag': {
+          return this.$style.cursorDrag
         }
         default: {
           return this.$style.cursorMouse
@@ -76,6 +82,7 @@ export default {
   transform: translate(-50%, -50%);
 }
 
+/* Mouse */
 .cursorMouse {
   transition: width 200ms ease-out, height 200ms ease-out,
     background-color 200ms ease-out;
@@ -86,13 +93,94 @@ export default {
   border-radius: 100%;
 }
 
+/* Pointer */
 .cursorPointer {
   transition: width 200ms ease-out, height 200ms ease-out,
     background-color 200ms ease-out;
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
   background: rgba(255, 0, 0, 0.75);
   border-radius: 100%;
+}
+
+/* Drag */
+.cursorDrag {
+  transition: width 200ms ease-out, height 200ms ease-out,
+    background-color 200ms ease-out;
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 100%;
+}
+
+/* Drag: Arrow left */
+.cursorDrag .arrowLeft {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateX(-10px);
+}
+
+.cursorDrag .arrowLeft:after,
+.cursorDrag .arrowLeft:before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.cursorDrag .arrowLeft:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-right-color: #fff;
+  border-width: 4px;
+  margin-top: -4px;
+}
+
+.cursorDrag .arrowLeft:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-right-color: #fff;
+  border-width: 4px;
+  margin-top: -4px;
+}
+
+/* Drag: Arrow left */
+.cursorDrag .arrowRight {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateX(18px);
+}
+
+.cursorDrag .arrowRight:after,
+.cursorDrag .arrowRight:before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.cursorDrag .arrowRight:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-left-color: #fff;
+  border-width: 4px;
+  margin-top: -4px;
+}
+
+.cursorDrag .arrowRight:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-left-color: #fff;
+  border-width: 4px;
+  margin-top: -4px;
 }
 </style>
