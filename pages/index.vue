@@ -1,25 +1,5 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        timrijkse
-      </h1>
-      <h2 class="subtitle">
-        Portfolio of creative frontend developer Tim Rijkse
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+  <section class="container"/>
 </template>
 
 <script>
@@ -33,10 +13,10 @@ export default {
 </script>
 
 <style>
-
 .container {
   min-height: 100vh;
   display: flex;
+  background-color: #101010;
   justify-content: center;
   align-items: center;
   text-align: center;
