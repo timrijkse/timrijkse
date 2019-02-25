@@ -1,13 +1,15 @@
 <template>
-  <section class="container"/>
+  <section class="container">
+    <rectangle-button>Hallooo</rectangle-button>
+  </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import RectangleButton from '~/components/RectangleButton.vue'
 
 export default {
   components: {
-    Logo
+    RectangleButton
   }
 }
 </script>
