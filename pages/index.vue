@@ -1,15 +1,21 @@
 <template>
   <section class="container">
-    <rectangle-button>Hallooo</rectangle-button>
+    <noise-background/>
+    <drag-carousel/>
+    <!-- <rectangle-button>Hallooo</rectangle-button> -->
   </section>
 </template>
 
 <script>
+import NoiseBackground from '~/components/NoiseBackground.vue'
 import RectangleButton from '~/components/RectangleButton.vue'
+import DragCarousel from '~/components/DragCarousel'
 
 export default {
   components: {
-    RectangleButton
+    NoiseBackground,
+    RectangleButton,
+    DragCarousel
   }
 }
 </script>
@@ -18,7 +24,7 @@ export default {
 .container {
   min-height: 100vh;
   display: flex;
-  background-color: #101010;
+  background: radial-gradient(ellipse at center, #29382c 0%, #0c100d 100%);
   justify-content: center;
   align-items: center;
   text-align: center;

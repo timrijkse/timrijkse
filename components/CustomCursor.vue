@@ -8,6 +8,10 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
+const THROTTLE_MILLI_SECONDS = 33
+
 export default {
   data() {
     return {
@@ -41,11 +45,19 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('mousemove', this.onMouseMove, false)
+    window.addEventListener(
+      'mousemove',
+      _.throttle(this.onMouseMove, THROTTLE_MILLI_SECONDS),
+      false
+    )
   },
 
   beforeDestroy() {
-    window.removeEventListener('mousemove', this.onMouseMove, false)
+    window.removeEventListener(
+      'mousemove',
+      _.throttle(this.onMouseMove, THROTTLE_MILLI_SECONDS),
+      false
+    )
   },
 
   methods: {
@@ -65,14 +77,16 @@ export default {
 
 <style module>
 * {
-  cursor: none;
+  cursor: none !important;
 }
 
 .customCursor {
-  transition: left 200ms ease-out, top 200ms ease-out;
+  transition: left 33ms ease-out, top 33ms ease-out;
+  mix-blend-mode: difference;
   pointer-events: none;
   position: fixed;
   transform: translate(-50%, -50%);
+  will-change: left, top;
 }
 
 .absolute {
@@ -100,7 +114,7 @@ export default {
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: rgba(255, 0, 0, 0.75);
+  background: rgba(255, 255, 255, 1);
   border-radius: 100%;
 }
 

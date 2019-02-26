@@ -1002,6 +1002,11 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@robotkittens/gsap@^1.20.4":
+  version "1.20.4"
+  resolved "https://registry.yarnpkg.com/@robotkittens/gsap/-/gsap-1.20.4.tgz#03ef7a9741f4b3bc46892218fc56b5befb53e4a4"
+  integrity sha1-A+96l0H0s7xGiSIY/Fa1vvtT5KQ=
+
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"
@@ -3510,6 +3515,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6
   version "4.1.15"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
   integrity sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA==
+
+gsap@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-2.1.1.tgz#31c14ed4b8cfc2a795492b70b01a5787eb1c8378"
+  integrity sha512-+K9n1IB3cHu6s3nSWfjBSpwYFo4OBzOswjtzMvLK2fBsfcOijTNQdJ5NxRIg5rNPjIexIUGZd4xFekHvS+3OZg==
 
 gzip-size@^5.0.0:
   version "5.0.0"
