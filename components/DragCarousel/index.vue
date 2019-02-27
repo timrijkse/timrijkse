@@ -2,20 +2,26 @@
   <div :class="$style.dragCarousel">
     <div ref="bounds" :class="[$style.bounds, dragClass]">
       <div :class="$style.container" :style="skewStyles" data-cursor="drag">
-        <div ref="draggable" :class="$style.inner" data-cursor="drag">
+        <div
+          ref="draggable"
+          :class="$style.inner"
+          :style="{width: draggableWidth}"
+          data-cursor="drag"
+        >
           <slide
-            v-for="n in 10"
+            v-for="(slide, i) in slides"
             ref="slide"
             :class="$style.slide"
-            :key="n"
+            :key="i"
             to="project"
-            @on-click="handleSlideClick(n)"
+            @on-click="handleSlideClick(i)"
           />
         </div>
       </div>
     </div>
     <div>
       <nuxt-child
+        ref="projectSlug"
         :class="$style.project"
         :key="$route.name"
         :width="projectWidth"
@@ -40,13 +46,26 @@ export default {
   data() {
     return {
       draggable: null,
+      draggableWidth: 0,
       isDragging: false,
       velocityTracker: null,
       velocity: 0,
       projectWidth: null,
       projectHeight: null,
       projectLeft: null,
-      projectTop: null
+      projectTop: null,
+      slides: [
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' },
+        { title: '' }
+      ]
     }
   },
 
@@ -71,11 +90,18 @@ export default {
   },
 
   mounted() {
+    this.setDimensions()
     this.createDraggable()
-    console.log('MOUNTED')
+    this.setDraggablePosition()
+    this.tweenIn()
   },
 
   methods: {
+    setDimensions() {
+      this.draggableWidth = `${200 +
+        (this.$refs.slide[0].$el.clientWidth + 100) * this.slides.length}px`
+    },
+
     createDraggable() {
       const Draggable = require('@robotkittens/gsap/Draggable')
       const ThrowPropsPlugin = require('@robotkittens/gsap/ThrowPropsPlugin')
@@ -98,6 +124,22 @@ export default {
 
     destroyDraggable() {
       Draggable.get(this.$refs.draggable).kill()
+      this.draggable = null
+    },
+
+    setDraggablePosition() {
+      if (!this.$route.params.slug) {
+        return
+      }
+
+      const { slug } = this.$route.params
+      const { left } = this.$refs.slide[slug].$el.getBoundingClientRect()
+
+      TweenMax.set(this.$refs.draggable, {
+        x: -left
+      })
+
+      Draggable.get(this.$refs.draggable).update()
     },
 
     onDrag() {
@@ -138,7 +180,7 @@ export default {
           {
             cycle: {
               x: function(index) {
-                return index < activeIndex - 1 ? -100 : 100
+                return index < activeIndex ? -100 : 100
               }
             },
             autoAlpha: 0,
@@ -148,7 +190,7 @@ export default {
         )
 
         tl.to(
-          this.$refs.slide[activeIndex - 1].$refs.title,
+          this.$refs.slide[activeIndex].$refs.title,
           0.25,
           {
             y: 30,
@@ -161,13 +203,15 @@ export default {
     },
 
     setProjectPosition(activeIndex) {
-      const slide = this.$refs.slide[activeIndex - 1].$refs.visual
+      const slide = this.$refs.slide[activeIndex].$refs.visual
       const { width, height, left, top } = slide.getBoundingClientRect()
 
       this.$data.projectWidth = width
       this.$data.projectHeight = height
       this.$data.projectLeft = left
       this.$data.projectTop = top
+
+      console.log(width, height, left, top, slide)
 
       this.$router.push({
         path: `/projects/${activeIndex}`,
@@ -179,6 +223,23 @@ export default {
           left: this.projectLeft
         }
       })
+    },
+
+    tweenIn() {
+      TweenMax.to(this.$el, 1, {
+        autoAlpha: 1
+      })
+
+      TweenMax.staggerFrom(
+        this.$refs.slide.map(slide => slide.$el),
+        1,
+        {
+          x: 500,
+          autoAlpha: 0,
+          ease: Power4.easeOut
+        },
+        0.125
+      )
     }
   }
 }
@@ -186,6 +247,7 @@ export default {
 
 <style module>
 .dragCarousel {
+  opacity: 0;
   width: 100%;
   height: 100%;
 }
@@ -204,8 +266,8 @@ export default {
   transform-style: preserve-3d;
   display: inline-flex;
   flex-wrap: nowrap;
-  width: 5000px;
   height: 350px;
+  padding: 0 100px;
   user-select: all !important;
   will-change: transform;
 }

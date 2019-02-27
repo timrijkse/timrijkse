@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt/>
+    <nuxt ref="nuxt"/>
     <custom-cursor/>
   </div>
 </template>
@@ -11,6 +11,14 @@ import CustomCursor from '@/components/CustomCursor'
 export default {
   components: {
     CustomCursor
+  },
+
+  transition: {
+    appear: true,
+
+    enter(el, done) {
+      console.log(this.$refs)
+    }
   }
 }
 </script>

@@ -1,12 +1,12 @@
 <template>
   <section class="container">
     <noise-background/>
-    <drag-carousel/>
-    <!-- <rectangle-button>Hallooo</rectangle-button> -->
+    <drag-carousel ref="dragCarousel"/>
   </section>
 </template>
 
 <script>
+import { TweenMax, Power4 } from 'gsap'
 import NoiseBackground from '~/components/NoiseBackground.vue'
 import RectangleButton from '~/components/RectangleButton.vue'
 import DragCarousel from '~/components/DragCarousel'
