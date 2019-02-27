@@ -1,6 +1,6 @@
 <template>
   <div ref="project" :class="$style.project" :style="dimensionStyles">
-    <nuxt-link to="/projects" data-cursor="pointer">projects</nuxt-link>
+    <span :class="$style.close" data-cursor="pointer" @click="handleClose">close</span>
   </div>
 </template>
 
@@ -34,6 +34,13 @@ export default {
       type: Number,
       default() {
         return null
+      }
+    },
+
+    index: {
+      type: Number,
+      default() {
+        return 0
       }
     }
   },
@@ -73,8 +80,29 @@ export default {
     }
   },
 
-  mounted() {
-    console.log(this)
+  methods: {
+    handleClose() {
+      if (!this.width) {
+        return this.$router.push({
+          path: `/projects`
+        })
+      }
+
+      TweenMax.to(this.$refs.project, 1, {
+        left: this.left,
+        top: this.top,
+        width: this.width,
+        height: this.height,
+        ease: Power4.easeOut,
+        onComplete: () => {
+          this.$emit('close-project')
+
+          this.$router.push({
+            path: `/projects`
+          })
+        }
+      })
+    }
   }
 }
 </script>
@@ -84,5 +112,12 @@ export default {
   width: 100%;
   height: 100%;
   background: #404040;
+  background-image: url('https://res.cloudinary.com/jmperez/image/upload/w_auto:100:800,f_auto/v1509278557/jmperez-composition-primitive_j8zyfn.jpg');
+  background-size: cover;
+}
+
+.close {
+  font-size: 20px;
+  color: #fff;
 }
 </style>

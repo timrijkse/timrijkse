@@ -13,8 +13,10 @@
             ref="slide"
             :class="$style.slide"
             :key="i"
+            :index="i"
             to="project"
             @on-click="handleSlideClick(i)"
+            @close-project="tweenInSlides"
           />
         </div>
       </div>
@@ -89,6 +91,14 @@ export default {
     }
   },
 
+  watch: {
+    $route() {
+      if (this.$route.name === 'projects') {
+        this.tweenInSlides()
+      }
+    }
+  },
+
   mounted() {
     this.setDimensions()
     this.createDraggable()
@@ -156,10 +166,21 @@ export default {
       this.velocity = this.velocityTracker.getVelocity('x')
     },
 
-    async handleSlideClick(i) {
-      await this.tweenOutSlides(i)
+    async handleSlideClick(activeIndex) {
+      await this.tweenOutSlides(activeIndex)
 
-      this.setProjectPosition(i)
+      this.setProjectPosition(activeIndex)
+
+      this.$router.push({
+        path: `/projects/${activeIndex}`,
+        props: true,
+        params: {
+          width: this.projectWidth,
+          height: this.projectHeight,
+          top: this.projectTop,
+          left: this.projectLeft
+        }
+      })
     },
 
     async tweenOutSlides(activeIndex) {
@@ -202,6 +223,21 @@ export default {
       })
     },
 
+    tweenInSlides() {
+      console.log('tweenInSlides')
+
+      TweenMax.to(this.$refs.slide.map(slide => slide.$el), 1, {
+        x: 0,
+        autoAlpha: 1
+      })
+
+      TweenMax.to(this.$refs.slide.map(slide => slide.$refs.title), 0.25, {
+        y: 0,
+        autoAlpha: 1,
+        ease: Power4.easeOut
+      })
+    },
+
     setProjectPosition(activeIndex) {
       const slide = this.$refs.slide[activeIndex].$refs.visual
       const { width, height, left, top } = slide.getBoundingClientRect()
@@ -212,17 +248,6 @@ export default {
       this.$data.projectTop = top
 
       console.log(width, height, left, top, slide)
-
-      this.$router.push({
-        path: `/projects/${activeIndex}`,
-        props: true,
-        params: {
-          width: this.projectWidth,
-          height: this.projectHeight,
-          top: this.projectTop,
-          left: this.projectLeft
-        }
-      })
     },
 
     tweenIn() {

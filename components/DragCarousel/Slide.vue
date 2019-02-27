@@ -26,6 +26,8 @@ export default {
   width: 100%;
   height: 300px;
   background-color: #404040;
+  background-image: url('https://res.cloudinary.com/jmperez/image/upload/w_auto:100:800,f_auto/v1509278557/jmperez-composition-primitive_j8zyfn.jpg');
+  background-size: cover;
 }
 
 .title {
