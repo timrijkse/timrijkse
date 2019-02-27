@@ -1,23 +1,34 @@
 <template>
-  <div ref="bounds" :class="[$style.dragCarousel, dragClass]">
-    <div :class="$style.container" :style="skewStyles" data-cursor="drag">
-      <div ref="draggable" :class="$style.inner" data-cursor="drag">
-        <slide
-          v-for="n in 10"
-          ref="slide"
-          :class="$style.slide"
-          :key="n"
-          to="project"
-          @on-click="handleSlideClick(n)"
-        />
+  <div :class="$style.dragCarousel">
+    <div ref="bounds" :class="[$style.bounds, dragClass]">
+      <div :class="$style.container" :style="skewStyles" data-cursor="drag">
+        <div ref="draggable" :class="$style.inner" data-cursor="drag">
+          <slide
+            v-for="n in 10"
+            ref="slide"
+            :class="$style.slide"
+            :key="n"
+            to="project"
+            @on-click="handleSlideClick(n)"
+          />
+        </div>
       </div>
     </div>
-
-    <nuxt-child ref="project" :class="$style.project"/>
+    <div>
+      <nuxt-child
+        :class="$style.project"
+        :key="$route.name"
+        :width="projectWidth"
+        :height="projectHeight"
+        :left="projectLeft"
+        :top="projectTop"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import { TweenMax, Power4 } from 'gsap'
 import Slide from './Slide'
 
@@ -31,7 +42,11 @@ export default {
       draggable: null,
       isDragging: false,
       velocityTracker: null,
-      velocity: 0
+      velocity: 0,
+      projectWidth: null,
+      projectHeight: null,
+      projectLeft: null,
+      projectTop: null
     }
   },
 
@@ -57,6 +72,7 @@ export default {
 
   mounted() {
     this.createDraggable()
+    console.log('MOUNTED')
   },
 
   methods: {
@@ -91,7 +107,6 @@ export default {
 
     onDragEnd() {
       this.isDragging = false
-      console.log('onDragEnd', this.isDragging)
     },
 
     onThrowUpdate() {
@@ -100,34 +115,9 @@ export default {
     },
 
     async handleSlideClick(i) {
-      console.log(
-        'handleSlideClick',
-        event.target.getBoundingClientRect(),
-        this.$refs
-      )
-
       await this.tweenOutSlides(i)
 
-      console.log('done!!!')
-
-      // this.$router.push('/project')
-
-      // const { width, height, left, top } = el.getBoundingClientRect()
-
-      // TweenMax.set(this.$refs.project.$el, {
-      //   width,
-      //   height,
-      //   left,
-      //   top
-      // })
-
-      // TweenMax.to(this.$refs.project.$el, 1.5, {
-      //   width: '100%',
-      //   height: '100%',
-      //   left: 0,
-      //   top: 0,
-      //   ease: Power4.easeOut
-      // })
+      this.setProjectPosition(i)
     },
 
     async tweenOutSlides(activeIndex) {
@@ -168,6 +158,27 @@ export default {
           '-=0.5'
         )
       })
+    },
+
+    setProjectPosition(activeIndex) {
+      const slide = this.$refs.slide[activeIndex - 1].$refs.visual
+      const { width, height, left, top } = slide.getBoundingClientRect()
+
+      this.$data.projectWidth = width
+      this.$data.projectHeight = height
+      this.$data.projectLeft = left
+      this.$data.projectTop = top
+
+      this.$router.push({
+        path: `/projects/${activeIndex}`,
+        props: true,
+        params: {
+          width: this.projectWidth,
+          height: this.projectHeight,
+          top: this.projectTop,
+          left: this.projectLeft
+        }
+      })
     }
   }
 }
@@ -175,6 +186,11 @@ export default {
 
 <style module>
 .dragCarousel {
+  width: 100%;
+  height: 100%;
+}
+
+.bounds {
   perspective: 800px;
   perspective-origin: 150% 150%;
   overflow: hidden;
@@ -206,6 +222,5 @@ export default {
   top: 0;
   width: 0;
   height: 0;
-  background: #404040;
 }
 </style>
