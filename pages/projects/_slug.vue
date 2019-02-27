@@ -35,18 +35,15 @@ export default {
       default() {
         return null
       }
-    },
-
-    index: {
-      type: Number,
-      default() {
-        return 0
-      }
     }
   },
 
   transition: {
     appear: true,
+
+    beforeEnter() {
+      this.$parent.setProjectLeavePosition(this.$route.params.slug)
+    },
 
     enter(el, done) {
       TweenMax.to(this.$refs.projectSlug.$refs.project, 1, {
@@ -82,12 +79,6 @@ export default {
 
   methods: {
     handleClose() {
-      if (!this.width) {
-        return this.$router.push({
-          path: `/projects`
-        })
-      }
-
       TweenMax.to(this.$refs.project, 1, {
         left: this.left,
         top: this.top,
@@ -95,8 +86,6 @@ export default {
         height: this.height,
         ease: Power4.easeOut,
         onComplete: () => {
-          this.$emit('close-project')
-
           this.$router.push({
             path: `/projects`
           })

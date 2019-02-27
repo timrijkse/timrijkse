@@ -5,7 +5,7 @@
         <div
           ref="draggable"
           :class="$style.inner"
-          :style="{width: draggableWidth}"
+          :style="{width: `${draggableWidth}px`}"
           data-cursor="drag"
         >
           <slide
@@ -13,10 +13,7 @@
             ref="slide"
             :class="$style.slide"
             :key="i"
-            :index="i"
-            to="project"
             @on-click="handleSlideClick(i)"
-            @close-project="tweenInSlides"
           />
         </div>
       </div>
@@ -36,13 +33,22 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import _ from 'lodash'
 import { TweenMax, Power4 } from 'gsap'
 import Slide from './Slide'
 
 export default {
   components: {
     Slide
+  },
+
+  props: {
+    activeSlide: {
+      type: Number,
+      default() {
+        return 0
+      }
+    }
   },
 
   data() {
@@ -93,9 +99,11 @@ export default {
 
   watch: {
     $route() {
-      if (this.$route.name === 'projects') {
-        this.tweenInSlides()
-      }
+      this.handleRoute()
+    },
+
+    activeSlide() {
+      this.handleSlideClick(this.activeSlide)
     }
   },
 
@@ -108,8 +116,18 @@ export default {
 
   methods: {
     setDimensions() {
-      this.draggableWidth = `${200 +
-        (this.$refs.slide[0].$el.clientWidth + 100) * this.slides.length}px`
+      this.draggableWidth =
+        200 + (this.$refs.slide[0].$el.clientWidth + 100) * this.slides.length
+    },
+
+    handleRoute() {
+      if (this.$route.name === 'projects') {
+        return this.tweenInSlides()
+      }
+
+      if (this.$route.params.slug) {
+        this.setProjectPosition(this.$route.params.slug)
+      }
     },
 
     createDraggable() {
@@ -143,7 +161,10 @@ export default {
       }
 
       const { slug } = this.$route.params
-      const { left } = this.$refs.slide[slug].$el.getBoundingClientRect()
+
+      let maxLeft = this.draggableWidth - this.$el.clientWidth
+      let left = this.$refs.slide[slug].$el.getBoundingClientRect().left - 500
+      left = _.clamp(left, 0, maxLeft)
 
       TweenMax.set(this.$refs.draggable, {
         x: -left
@@ -224,8 +245,6 @@ export default {
     },
 
     tweenInSlides() {
-      console.log('tweenInSlides')
-
       TweenMax.to(this.$refs.slide.map(slide => slide.$el), 1, {
         x: 0,
         autoAlpha: 1
@@ -246,8 +265,6 @@ export default {
       this.$data.projectHeight = height
       this.$data.projectLeft = left
       this.$data.projectTop = top
-
-      console.log(width, height, left, top, slide)
     },
 
     tweenIn() {
@@ -255,16 +272,18 @@ export default {
         autoAlpha: 1
       })
 
-      TweenMax.staggerFrom(
-        this.$refs.slide.map(slide => slide.$el),
-        1,
-        {
-          x: 500,
-          autoAlpha: 0,
-          ease: Power4.easeOut
-        },
-        0.125
-      )
+      if (!this.$route.params.slug) {
+        TweenMax.staggerFrom(
+          this.$refs.slide.map(slide => slide.$el),
+          1,
+          {
+            x: 500,
+            autoAlpha: 0,
+            ease: Power4.easeOut
+          },
+          0.125
+        )
+      }
     }
   }
 }

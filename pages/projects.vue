@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <noise-background/>
-    <drag-carousel ref="dragCarousel"/>
+    <drag-carousel ref="dragCarousel" :active-slide="activeSlide"/>
   </section>
 </template>
 
@@ -16,6 +16,18 @@ export default {
     NoiseBackground,
     RectangleButton,
     DragCarousel
+  },
+
+  data() {
+    return {
+      activeSlide: 0
+    }
+  },
+
+  methods: {
+    setProjectLeavePosition(activeSlide) {
+      this.activeSlide = parseInt(activeSlide)
+    }
   }
 }
 </script>
