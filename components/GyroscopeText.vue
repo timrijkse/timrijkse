@@ -1,5 +1,5 @@
 <template>
-  <h2 :class="$style.gyroscopeText">
+  <h2 :class="$style.gyroscopeText" :style="fontVariationSettings">
     <slot></slot>
   </h2>
 </template>
@@ -24,53 +24,71 @@ export default {
     maxSlant: {
       type: Number,
       default() {
-        return 10
+        return 1
       }
     }
   },
 
   data() {
     return {
-      factor: 0.1
+      percentageY: 0, // y
+      percentageX: 0 // x
     }
   },
 
   computed: {
     fontWidth() {
-      return this.maxWidth
+      return (this.maxWidth / 100) * this.percentageX
     },
 
     fontWeight() {
-      return this.maxWeight
+      return (this.maxWeight / 100) * this.percentageY
     },
 
     fontSlant() {
-      return this.maxSlant
+      return (this.maxSlant / 100) * this.percentageX
+    },
+
+    fontVariationSettings() {
+      return {
+        fontVariationSettings: `'wght' ${this.fontWeight}, 'wdth' ${
+          this.fontWidth
+        }, 'ital' ${this.fontSlant}`
+      }
+      // return `font-variation-settings: "wght" ${this.fontWeight}, "wdth"
+      //     ${this.fontWidth}, "ital" ${this.fontSlant};`
     }
   },
 
   mounted() {
     window.addEventListener(
-      'orientationchange',
-      this.onOrientationChange,
+      'deviceorientation',
+      this.onDeviceOrientation,
       false
     )
   },
 
   beforeDestroy() {
     window.removeEventListener(
-      'orientationchange',
-      this.onOrientationChange,
+      'deviceorientation',
+      this.onDeviceOrientation,
       false
     )
   },
 
   methods: {
-    getValueByFactor(number) {
-      return (number / 100) * this.factor
+    mapBetween(currentNum, minAllowed, maxAllowed, min, max) {
+      return (
+        ((maxAllowed - minAllowed) * (currentNum - min)) / (max - min) +
+        minAllowed
+      )
     },
 
-    onOrientationChange(e) {}
+    onDeviceOrientation(e) {
+      this.percentageX = this.mapBetween(e.beta, 0, 100, -30, 30)
+      this.percentageY = this.mapBetween(e.gamma, 0, 100, -60, 60)
+      console.log(e.beta, e.gamma)
+    }
   }
 }
 </script>
@@ -84,11 +102,12 @@ export default {
 }
 
 .gyroscopeText {
-  transition: all 0.5s ease-out;
+  transition: all 0.15s ease-out;
   font-family: 'KairosSans';
-  font-size: 150px;
+  font-size: 100px;
   text-transform: uppercase;
   width: 100%;
+  /* font-variation-settings: 'wght' 1000, 'wdth' 1000, 'ital' 1; */
   color: #fff;
 }
 </style>

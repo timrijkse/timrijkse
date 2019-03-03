@@ -1,3 +1,4 @@
+// prettier-ignore
 /*!
  * VERSION: 0.11.1
  * DATE: 2017-06-19

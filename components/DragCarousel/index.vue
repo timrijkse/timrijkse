@@ -131,10 +131,6 @@ export default {
     },
 
     createDraggable() {
-      const Draggable = require('@/scripts/Draggable')
-      const ThrowPropsPlugin = require('@/scripts/ThrowPropsPlugin')
-      const ModifiersPlugin = require('@/scripts/ModifiersPlugin')
-
       this.draggable = Draggable.create(this.$refs.draggable, {
         type: 'x',
         throwProps: true,
