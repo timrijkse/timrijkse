@@ -13,6 +13,7 @@
             ref="slide"
             :class="$style.slide"
             :key="i"
+            :idle-lazy-image="idleLazyImage"
             @on-click="handleSlideClick(i)"
           />
         </div>
@@ -62,6 +63,7 @@ export default {
       projectHeight: null,
       projectLeft: null,
       projectTop: null,
+      idleLazyImage: true,
       slides: [
         { title: '' },
         { title: '' },
@@ -275,7 +277,10 @@ export default {
           {
             x: 500,
             autoAlpha: 0,
-            ease: Power4.easeOut
+            ease: Power4.easeOut,
+            onComplete: () => {
+              this.idleLazyImage = false
+            }
           },
           0.125
         )
@@ -301,14 +306,12 @@ export default {
   display: inline-flex;
   align-items: center;
   width: 100%;
-  height: 500px;
 }
 
 .inner {
   transform-style: preserve-3d;
   display: inline-flex;
   flex-wrap: nowrap;
-  height: 350px;
   padding: 0 100px;
   user-select: all !important;
   will-change: transform;
