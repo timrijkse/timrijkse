@@ -55,8 +55,6 @@ export default {
           this.fontWidth
         }, 'ital' ${this.fontSlant}`
       }
-      // return `font-variation-settings: "wght" ${this.fontWeight}, "wdth"
-      //     ${this.fontWidth}, "ital" ${this.fontSlant};`
     }
   },
 
@@ -86,7 +84,7 @@ export default {
 
     onDeviceOrientation(e) {
       this.percentageX = this.mapBetween(e.beta, 0, 100, -30, 30)
-      this.percentageY = this.mapBetween(e.gamma, 0, 100, -60, 60)
+      this.percentageY = this.mapBetween(e.gamma, 0, 100, -30, 30)
       console.log(e.beta, e.gamma)
     }
   }
