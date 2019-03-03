@@ -1,6 +1,7 @@
 {
   "name": "timrijkse",
   "version": 2,
+  "forwardNpm": true,
   "builds": [
     {
       "src": "package.json",
