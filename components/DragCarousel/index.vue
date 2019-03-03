@@ -131,9 +131,9 @@ export default {
     },
 
     createDraggable() {
-      const Draggable = require('@robotkittens/gsap/Draggable')
-      const ThrowPropsPlugin = require('@robotkittens/gsap/ThrowPropsPlugin')
-      const ModifiersPlugin = require('@robotkittens/gsap/ModifiersPlugin')
+      const Draggable = require('@/scripts/Draggable')
+      const ThrowPropsPlugin = require('@/scripts/ThrowPropsPlugin')
+      const ModifiersPlugin = require('@/scripts/ModifiersPlugin')
 
       this.draggable = Draggable.create(this.$refs.draggable, {
         type: 'x',
