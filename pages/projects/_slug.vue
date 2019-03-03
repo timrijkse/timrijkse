@@ -1,6 +1,8 @@
 <template>
   <div ref="project" :class="$style.project" :style="dimensionStyles">
-    <span :class="$style.close" data-cursor="pointer" @click="handleClose">close</span>
+    <div :class="$style.content">
+      <span :class="$style.close" data-cursor="pointer" @click="handleClose">close</span>
+    </div>
   </div>
 </template>
 
@@ -100,9 +102,17 @@ export default {
 .project {
   width: 100%;
   height: 100%;
+  transform: translate3d(0, 0, 0);
   background: #404040;
   background-image: url('https://res.cloudinary.com/jmperez/image/upload/w_auto:100:800,f_auto/v1509278557/jmperez-composition-primitive_j8zyfn.jpg');
   background-size: cover;
+  backface-visibility: hidden;
+  z-index: 2;
+  will-change: left, top, width, height, opacity;
+}
+
+.content {
+  height: 5000px;
 }
 
 .close {

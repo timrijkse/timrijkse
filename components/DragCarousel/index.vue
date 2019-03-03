@@ -292,8 +292,10 @@ export default {
 <style module>
 .dragCarousel {
   opacity: 0;
+  position: relative;
   width: 100%;
   height: 100%;
+  backface-visibility: hidden;
 }
 
 .bounds {
@@ -319,6 +321,9 @@ export default {
 .container {
   transition: transform 100ms ease-out;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  z-index: 1;
 }
 
 .project {
@@ -328,5 +333,6 @@ export default {
   top: 0;
   width: 0;
   height: 0;
+  z-index: 2;
 }
 </style>

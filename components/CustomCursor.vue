@@ -86,6 +86,7 @@ export default {
   pointer-events: none;
   position: fixed;
   transform: translate(-50%, -50%);
+  z-index: 9999;
   will-change: left, top;
 }
 

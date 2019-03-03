@@ -1,26 +1,23 @@
 <template>
-  <section class="container">
+  <section :class="$style.container">
     <noise-background/>
-    <drag-carousel/>
-    <!-- <rectangle-button>Hallooo</rectangle-button> -->
+    <gyroscope-text :class="$style.gyroscopeText">AHOY MATE!</gyroscope-text>
   </section>
 </template>
 
 <script>
 import NoiseBackground from '~/components/NoiseBackground.vue'
-import RectangleButton from '~/components/RectangleButton.vue'
-import DragCarousel from '~/components/DragCarousel'
+import GyroscopeText from '~/components/GyroscopeText.vue'
 
 export default {
   components: {
     NoiseBackground,
-    RectangleButton,
-    DragCarousel
+    GyroscopeText
   }
 }
 </script>
 
-<style>
+<style module>
 .container {
   min-height: 100vh;
   display: flex;
@@ -30,25 +27,11 @@ export default {
   text-align: center;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.gyroscopeText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
 </style>
