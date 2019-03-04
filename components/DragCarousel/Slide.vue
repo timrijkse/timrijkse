@@ -8,12 +8,7 @@
     @mouseleave="onMouseLeave"
   >
     <div ref="visual" data-cursor="drag" @click="onClick">
-      <lazy-image
-        :class="$style.visual"
-        :aspect-ratio="0.75"
-        :idle="idleLazyImage"
-        src="placeholder.png"
-      />
+      <lazy-image :class="$style.visual" :aspect-ratio="0.75" :idle="idleLazyImage" :src="image"/>
     </div>
     <h2 ref="title" :class="$style.title" data-cursor="pointer" @click="onClick" v-html="title"></h2>
   </div>
@@ -40,6 +35,11 @@ export default {
       default() {
         return 'Project name'
       }
+    },
+
+    image: {
+      type: String,
+      required: true
     }
   },
 
@@ -69,7 +69,7 @@ export default {
     },
 
     onMouseEnter() {
-      this.scale = 1.1
+      this.scale = 1.3
       this.zIndex = 2
     },
 
@@ -79,8 +79,8 @@ export default {
     },
 
     onMouseMove(e) {
-      this.ax = -(window.innerWidth / 2 - e.pageX) / 50
-      this.ay = (window.innerHeight / 2 - e.pageY) / 50
+      this.ax = -(window.innerWidth / 2 - e.pageX) / 40
+      this.ay = (window.innerHeight / 2 - e.pageY) / 40
     }
   }
 }
@@ -111,7 +111,7 @@ export default {
   font-size: 30px;
   text-transform: uppercase;
   padding: 15px;
-  /* filter: blur(20px); */
+  filter: blur(20px);
   color: #fff;
   will-change: opacity, transform, text-shadow, font-variation-settings;
   font-variation-settings: 'wght' 300, 'wdth' 100, 'ital' 0;
@@ -132,18 +132,33 @@ export default {
   padding: 15px;
   text-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
 
-  font-variation-settings: 'wght' 500, 'wdth' 300, 'ital' 1;
+  font-variation-settings: 'wght' 200, 'wdth' 200, 'ital' 1;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-left: 0;
   border-right: 0;
 }
 
+.slide:hover .title:before {
+  transition: all 300ms linear;
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .slide .title:hover {
-  transform: translateZ(320px) translateX(-50%) translateY(-50%);
-  font-variation-settings: 'wght' 500, 'wdth' 300, 'ital' 1;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateZ(350px) translateX(-50%) translateY(-50%);
+  font-variation-settings: 'wght' 600, 'wdth' 300, 'ital' 1;
   border-left: 0;
   border-right: 0;
+}
+
+.slide .title:hover:before {
+  background-color: rgba(0, 0, 0, 0.025);
 }
 
 .slide:hover .visual {
@@ -152,8 +167,8 @@ export default {
 
 @media (min-width: 768px) {
   .slide {
-    flex: 0 0 30vw;
-    margin: 0 100px 0 0;
+    flex: 0 0 40vw;
+    margin: 0 10vw 0 0;
   }
 }
 </style>

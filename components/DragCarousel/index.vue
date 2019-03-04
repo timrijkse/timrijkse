@@ -15,6 +15,7 @@
             :key="i"
             :idle-lazy-image="idleLazyImage"
             :title="slide.title"
+            :image="slide.image"
             @on-click="handleSlideClick(i)"
           />
         </div>
@@ -66,10 +67,13 @@ export default {
       projectTop: null,
       idleLazyImage: true,
       slides: [
-        { title: 'Tommy Sports' },
-        { title: 'Tommy X Lewis' },
-        { title: 'Volkswagen Vrienden<br> weegschaal' },
-        { title: 'Radio 538' }
+        { title: 'Tommy Sports', image: 'project-tommy-sports.png' },
+        { title: 'Tommy X Lewis', image: 'project-tommy-lewis.png' },
+        {
+          title: 'Volkswagen Vrienden<br> weegschaal',
+          image: 'placeholder.png'
+        },
+        { title: 'Radio 538', image: 'placeholder.png' }
       ]
     }
   },
@@ -114,7 +118,9 @@ export default {
   methods: {
     setDimensions() {
       this.draggableWidth =
-        200 + (this.$refs.slide[0].$el.clientWidth + 100) * this.slides.length
+        200 +
+        (this.$refs.slide[0].$el.clientWidth + window.innerWidth / 10) *
+          this.slides.length
     },
 
     handleRoute() {
@@ -290,7 +296,7 @@ export default {
   backface-visibility: hidden;
   display: inline-flex;
   flex-wrap: nowrap;
-  padding: 0 100px;
+  padding: 0 10vw;
   user-select: all !important;
   will-change: transform;
 }

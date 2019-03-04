@@ -105,7 +105,7 @@ export default {
   height: 100vh;
   transform: translate3d(0, 0, 0);
   background: #404040;
-  background-image: url('https://res.cloudinary.com/jmperez/image/upload/w_auto:100:800,f_auto/v1509278557/jmperez-composition-primitive_j8zyfn.jpg');
+  background-image: url('/project-tommy-lewis.png');
   background-size: cover;
   backface-visibility: hidden;
   z-index: 2;
