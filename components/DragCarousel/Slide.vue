@@ -69,7 +69,7 @@ export default {
     },
 
     onMouseEnter() {
-      this.scale = 1.3
+      this.scale = 1.15
       this.zIndex = 2
     },
 
@@ -88,7 +88,7 @@ export default {
 
 <style module>
 .slide {
-  transition: transform 500ms ease-out;
+  transition: transform 500ms cubic-bezier(0.19, 1, 0.22, 1);
   transform-style: preserve-3d;
   perspective-origin: 50% 50%;
   perspective: 1200px;
@@ -158,7 +158,7 @@ export default {
 }
 
 .slide .title:hover:before {
-  background-color: rgba(0, 0, 0, 0.025);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .slide:hover .visual {

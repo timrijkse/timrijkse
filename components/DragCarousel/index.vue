@@ -71,9 +71,9 @@ export default {
         { title: 'Tommy X Lewis', image: 'project-tommy-lewis.png' },
         {
           title: 'Volkswagen Vrienden<br> weegschaal',
-          image: 'placeholder.png'
+          image: 'project-volkswagen.png'
         },
-        { title: 'Radio 538', image: 'placeholder.png' }
+        { title: 'Radio 538', image: 'project-538.png' }
       ]
     }
   },
