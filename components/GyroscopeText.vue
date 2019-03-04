@@ -92,13 +92,6 @@ export default {
 </script>
 
 <style module>
-@font-face {
-  font-family: KairosSans;
-  font-display: swap;
-  src: url(https://yoksel.github.io/variable-fonts/assets/fonts/KairosSans/KairosSans_Variable.ttf)
-    format('truetype');
-}
-
 .gyroscopeText {
   transition: all 0.15s ease-out;
   font-family: 'KairosSans';

@@ -52,7 +52,7 @@ export default {
         left: 0,
         top: 0,
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight - 200,
         ease: Power4.easeOut,
         onComplete: done
       })
@@ -100,8 +100,9 @@ export default {
 
 <style module>
 .project {
+  overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   transform: translate3d(0, 0, 0);
   background: #404040;
   background-image: url('https://res.cloudinary.com/jmperez/image/upload/w_auto:100:800,f_auto/v1509278557/jmperez-composition-primitive_j8zyfn.jpg');

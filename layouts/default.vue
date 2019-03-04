@@ -36,6 +36,13 @@ html {
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: KairosSans;
+  font-display: swap;
+  src: url(https://yoksel.github.io/variable-fonts/assets/fonts/KairosSans/KairosSans_Variable.ttf)
+    format('truetype');
+}
+
 *,
 *:before,
 *:after {

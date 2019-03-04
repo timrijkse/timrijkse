@@ -276,6 +276,7 @@ export default {
           1,
           {
             x: 500,
+            scale: 0.5,
             autoAlpha: 0,
             ease: Power4.easeOut,
             onComplete: () => {
@@ -300,16 +301,13 @@ export default {
 }
 
 .bounds {
-  perspective: 800px;
-  perspective-origin: 150% 150%;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: inline-flex;
   align-items: center;
   width: 100%;
 }
 
 .inner {
-  transform-style: preserve-3d;
   display: inline-flex;
   flex-wrap: nowrap;
   padding: 0 100px;

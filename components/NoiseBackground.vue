@@ -1,21 +1,41 @@
 <template>
-  <div :class="$style.noiseBackground">
+  <div :class="$style.noiseBackground" :style="{ opacity: opacity }">
     <div :class="$style.noise"></div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    opacity: {
+      type: Number,
+      default() {
+        return 1
+      }
+    }
+  }
+}
 </script>
 
 <style module>
 .noiseBackground {
+  transition: opacity 200ms ease-out;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
+}
+
+.noiseBackground:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(ellipse at center, #29382c 0%, #0c100d 100%);
 }
 
 .noiseBackground:after {

@@ -81,7 +81,7 @@ export default {
 
     this.tl.to(
       this.$refs.path,
-      1,
+      2,
       {
         y: '-100%',
         ease: Power4.easeOut
