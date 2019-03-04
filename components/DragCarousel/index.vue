@@ -14,6 +14,7 @@
             :class="$style.slide"
             :key="i"
             :idle-lazy-image="idleLazyImage"
+            :title="slide.title"
             @on-click="handleSlideClick(i)"
           />
         </div>
@@ -65,16 +66,10 @@ export default {
       projectTop: null,
       idleLazyImage: true,
       slides: [
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' },
-        { title: '' }
+        { title: 'Tommy Sports' },
+        { title: 'Tommy X Lewis' },
+        { title: 'Volkswagen Vrienden<br> weegschaal' },
+        { title: 'Radio 538' }
       ]
     }
   },
@@ -228,17 +223,6 @@ export default {
           },
           0.05
         )
-
-        tl.to(
-          this.$refs.slide[activeIndex].$refs.title,
-          0.25,
-          {
-            y: 30,
-            autoAlpha: 0,
-            ease: Power4.easeOut
-          },
-          '-=0.5'
-        )
       })
     },
 
@@ -246,12 +230,6 @@ export default {
       TweenMax.to(this.$refs.slide.map(slide => slide.$el), 1, {
         x: 0,
         autoAlpha: 1
-      })
-
-      TweenMax.to(this.$refs.slide.map(slide => slide.$refs.title), 0.25, {
-        y: 0,
-        autoAlpha: 1,
-        ease: Power4.easeOut
       })
     },
 
@@ -308,6 +286,8 @@ export default {
 }
 
 .inner {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   display: inline-flex;
   flex-wrap: nowrap;
   padding: 0 100px;
