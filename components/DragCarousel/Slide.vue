@@ -69,7 +69,7 @@ export default {
     },
 
     onMouseEnter() {
-      this.scale = 1.15
+      this.scale = 1.05
       this.zIndex = 2
     },
 

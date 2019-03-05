@@ -1002,11 +1002,6 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
-"@robotkittens/gsap@^1.20.4":
-  version "1.20.4"
-  resolved "https://registry.yarnpkg.com/@robotkittens/gsap/-/gsap-1.20.4.tgz#03ef7a9741f4b3bc46892218fc56b5befb53e4a4"
-  integrity sha1-A+96l0H0s7xGiSIY/Fa1vvtT5KQ=
-
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"

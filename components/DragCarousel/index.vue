@@ -69,6 +69,8 @@ export default {
       slides: [
         { title: 'Tommy Sports', image: 'project-tommy-sports.png' },
         { title: 'Tommy X Lewis', image: 'project-tommy-lewis.png' },
+        { title: 'KFC Get The Original', image: 'project-kfc.jpg' },
+        { title: 'KLM Call your mom', image: 'project-klm.png' },
         {
           title: 'Volkswagen Vrienden<br> weegschaal',
           image: 'project-volkswagen.png'
@@ -84,8 +86,6 @@ export default {
       const maxSkewX = 20
 
       const ratio = _.clamp(this.velocity / maxVelocity, -1, 1)
-
-      console.log(ratio)
 
       const skewX = maxSkewX * ratio
 
