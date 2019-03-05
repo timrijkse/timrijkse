@@ -83,7 +83,10 @@ export default {
       const maxVelocity = 3000
       const maxSkewX = 20
 
-      const ratio = this.velocity / maxVelocity
+      const ratio = _.clamp(this.velocity / maxVelocity, -1, 1)
+
+      console.log(ratio)
+
       const skewX = maxSkewX * ratio
 
       return {

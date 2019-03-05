@@ -111,7 +111,7 @@ export default {
   font-size: 30px;
   text-transform: uppercase;
   padding: 15px;
-  filter: blur(20px);
+  /* filter: blur(20px); */
   color: #fff;
   will-change: opacity, transform, text-shadow, font-variation-settings;
   font-variation-settings: 'wght' 300, 'wdth' 100, 'ital' 0;
@@ -127,7 +127,7 @@ export default {
   /* transform: translateZ(100px) translateX(-50%) translateY(-50%); */
   transform: translateZ(320px) translateX(-50%) translateY(-50%);
   opacity: 1;
-  filter: blur(0);
+  /* filter: blur(0); */
   font-size: 30px;
   padding: 15px;
   text-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
